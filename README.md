@@ -2,7 +2,6 @@
 <hr>
 <h3>How to run Web Assembly</h3> <br>
 $cd emsdk <br>
-$ ./emsdk install --build=Release sdk-incoming-64bit binaryen-master-64bit <br>
 $ ./emsdk activate --build=Release sdk-incoming-64bit binaryen-master-64bit <br>
 $ source ./emsdk_env.sh --build=Release <br>
 
