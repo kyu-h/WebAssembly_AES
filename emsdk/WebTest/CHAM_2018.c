@@ -196,16 +196,36 @@ void Enc256(u32* X, u32* RK){
 int main(void) {
     clock_t start_time, finish_time;
     float result_time;
+    int i;
     
     start_time = clock();
 	KeyGen64(roundkey64,secretkey64);
 	Enc64(plaintext64,roundkey64);
 
-	int i;
-	for (i=0;i<16;i++){
-		printf("0x%04x,0x%04x,",roundkey64[i],roundkey64[i]);
-	}
+    printf("CHAM 64 x 128 ciphertext: ");
+    for(i=0; i<4; i++){
+        printf("0x%04x, ", plaintext64[i]);
+    }
     printf("\n");
+    
+    KeyGen128(roundkey128,secretkey128);
+    Enc128(plaintext128,roundkey128);
+    
+    printf("CHAM 128 x 128 ciphertext: ");
+    for(i=0; i<4; i++){
+        printf("0x%04x, ", plaintext128[i]);
+    }
+    printf("\n");
+    
+    KeyGen256(roundkey256,secretkey256);
+    Enc256(plaintext256,roundkey256);
+    
+    printf("CHAM 128 x 256 ciphertext: ");
+    for(i=0; i<4; i++){
+        printf("0x%04x, ", plaintext256[i]);
+    }
+    printf("\n");
+    
     finish_time = clock();
     
     result_time = (float)(finish_time - start_time)/CLOCKS_PER_SEC;
