@@ -1,6 +1,6 @@
-
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 typedef unsigned int 	u32;
 typedef unsigned short 	u16;
@@ -194,6 +194,10 @@ void Enc256(u32* X, u32* RK){
 }
 
 int main(void) {
+    clock_t start_time, finish_time;
+    float result_time;
+    
+    start_time = clock();
 	KeyGen64(roundkey64,secretkey64);
 	Enc64(plaintext64,roundkey64);
 
@@ -202,5 +206,10 @@ int main(void) {
 		printf("0x%04x,0x%04x,",roundkey64[i],roundkey64[i]);
 	}
     printf("\n");
+    finish_time = clock();
+    
+    result_time = (float)(finish_time - start_time)/CLOCKS_PER_SEC;
+    
+    printf("Total amount time : %.3f \n", result_time);
 	return EXIT_SUCCESS;
 }
