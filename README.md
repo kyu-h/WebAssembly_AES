@@ -18,5 +18,7 @@ int main(int argc, char ** argv) {<br>
   return 0;<br>
 }<br><br>
 $emcc example.c -s WASM=1 -o example.html <br>
-$emrun --no_browser example.html --port 8080 //the browser will run 6931 port. 8080 extends to 6931. <br>
+$emrun --no_browser example.html --port 8080 //the browser will run 6931 port. 8080 extends to 6931. <br><br>
 
+Once the HTTP server is running, you can access http://localhost:6931/example.html this link. <br>
+If you see 'github by kyu' on console, you are success complie Web Assembly!
