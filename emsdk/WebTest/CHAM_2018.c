@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <sys/time.h>
 
 typedef unsigned int 	u32;
 typedef unsigned short 	u16;
@@ -13,13 +12,6 @@ typedef unsigned short 	u16;
 #define ROL32(W,i) (((W)<<(i)) | ((W)>>(32-(i))))
 
 #define BILLION 1000000000L
-
-/*
-CHAM-64/128
-secret Key : 0x0100 0x0302 0x0504 0x0706 0x0908 0x0b0a 0x0d0c 0x0f0e
-plaintext : 0x1100 0x3322 0x5544 0x7766
-ciphertext : 0x453c 0x63bc 0xdcfa 0xbf4e
-*/
 
 u16 secretkey64[] = {0x0100, 0x0302, 0x0504, 0x0706, 0x0908, 0x0b0a, 0x0d0c, 0x0f0e};
 u16 plaintext64[] = {0x1100, 0x3322, 0x5544, 0x7766};
@@ -197,7 +189,7 @@ void Enc256(u32* X, u32* RK){
 }
 
 int main(void) {
-    unsigned int diff;
+    u32 diff;
     struct timespec start, end;
     int i;
     
