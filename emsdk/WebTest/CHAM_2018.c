@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <sys/time.h>
 
 typedef unsigned int 	u32;
 typedef unsigned short 	u16;
@@ -10,6 +11,8 @@ typedef unsigned short 	u16;
 
 #define ROR32(W,i) (((W)>>(i)) | ((W)<<(32-(i))))
 #define ROL32(W,i) (((W)<<(i)) | ((W)>>(32-(i))))
+
+#define BILLION 1000000000L
 
 /*
 CHAM-64/128
@@ -194,14 +197,15 @@ void Enc256(u32* X, u32* RK){
 }
 
 int main(void) {
-    clock_t start_time, finish_time;
-    float result_time;
+    unsigned int diff;
+    struct timespec start, end;
     int i;
     
-    start_time = clock();
+    clock_gettime(CLOCK_MONOTONIC, &start);
+
 	KeyGen64(roundkey64,secretkey64);
 	Enc64(plaintext64,roundkey64);
-
+    
     printf("CHAM 64 x 128 ciphertext: ");
     for(i=0; i<4; i++){
         printf("0x%04x, ", plaintext64[i]);
@@ -224,12 +228,11 @@ int main(void) {
     for(i=0; i<4; i++){
         printf("0x%04x, ", plaintext256[i]);
     }
-    printf("\n");
+    printf("\n\n");
     
-    finish_time = clock();
+    clock_gettime(CLOCK_MONOTONIC, &end);
+    diff = BILLION * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
+    printf("CHAM 3 modules encryption elapsed time = %llu nanoseconds\n", (long long unsigned int) diff);
     
-    result_time = (float)(finish_time - start_time)/CLOCKS_PER_SEC;
-    
-    printf("Total amount time : %.3f \n", result_time);
 	return EXIT_SUCCESS;
 }
