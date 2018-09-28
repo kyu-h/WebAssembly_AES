@@ -1,11 +1,5 @@
 # WebAssembly_CHAM
 <hr>
-<h3>How to run Web Assembly</h3> <br>
-$cd emsdk <br>
-$ ./emsdk activate --build=Release sdk-incoming-64bit binaryen-master-64bit <br>
-$ source ./emsdk_env.sh --build=Release <br>
-
-<hr>
 <h3>To build example file</h3> <br>
 
 $mkdir example // make folder <br>
@@ -16,7 +10,14 @@ int main(int argc, char ** argv) {<br>
   printf("github by kyu\n"); //**waring** Have to put '\n'. if not, can make error <br>
   return 0;<br>
 }<br><br>
+$emcc example.c -s WASM=1 -o example.html
+<hr>
+<h3>How to run Web Assembly</h3> <br>
+$cd emsdk <br>
+$./emsdk activate --build=Release sdk-incoming-64bit binaryen-master-64bit <br>
+$source ./emsdk_env.sh --build=Release <br>
 $emcc example.c -s WASM=1 -o example.html <br><br>
+
   &nbsp;&nbsp;&nbsp;->If want to include some files(ex, txt or img etc.), you need to use other command line <br>
   &nbsp;&nbsp;&nbsp;emcc can not access to files on disks. You just have block of memory. WASM code could be called from JS and also WASM could call JS function. <br>
   &nbsp;&nbsp;&nbsp;So, if want to include some files use under command line without above.
