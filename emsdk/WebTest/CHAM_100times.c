@@ -14,9 +14,9 @@ typedef unsigned short     u16;
 
 #define BILLION 1000000000L
 
-#define RFile_64x128 "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/CHAM_64x128.txt"
-#define RFile_128x128 "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/CHAM_128x128.txt"
-#define RFile_128x256 "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/CHAM_128x256.txt"
+#define RFile_64x128 "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/TestVectors/CHAM_64x128.txt"
+#define RFile_128x128 "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/TestVectors/CHAM_128x128.txt"
+#define RFile_128x256 "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/TestVectors/CHAM_128x256.txt"
 
 u16 secretkey64[] = {0x0100, 0x0302, 0x0504, 0x0706, 0x0908, 0x0b0a, 0x0d0c, 0x0f0e};
 u16 plaintext64[] = {0x1100, 0x3322, 0x5544, 0x7766};
@@ -199,7 +199,7 @@ int main(void) {
     int i;
     
     FILE *datafile;
-    char s[81];
+    char s[84];
     int num = 0;
     
     clock_gettime(CLOCK_MONOTONIC, &start);
@@ -211,7 +211,6 @@ int main(void) {
     }
     
     fgets(s, 80, datafile);
-    printf("%s\n", s);
 
     fclose(datafile);
     
@@ -318,7 +317,7 @@ int main(void) {
 
         num = 0;
 
-        fgets(s, 80, datafile);
+        fgets(s, 83, datafile);
         char *sk = strtok(s, ": ");
         while (sk != NULL){
             if(num != 0){

@@ -124,6 +124,7 @@ Module['FS_createPath']('/Users/kyu', 'Desktop', true, true);
 Module['FS_createPath']('/Users/kyu/Desktop', 'WebAssembly', true, true);
 Module['FS_createPath']('/Users/kyu/Desktop/WebAssembly', 'emsdk', true, true);
 Module['FS_createPath']('/Users/kyu/Desktop/WebAssembly/emsdk', 'WebTest', true, true);
+Module['FS_createPath']('/Users/kyu/Desktop/WebAssembly/emsdk/WebTest', 'TestVectors', true, true);
 
     function DataRequest(start, end, audio) {
       this.start = start;
@@ -200,7 +201,7 @@ Module['FS_createPath']('/Users/kyu/Desktop/WebAssembly/emsdk', 'WebTest', true,
   }
 
  }
- loadPackage({"files": [{"start": 0, "audio": 0, "end": 6148, "filename": "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/.DS_Store"}, {"start": 6148, "audio": 0, "end": 14342, "filename": "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/CHAM_100times.c"}, {"start": 14342, "audio": 0, "end": 26630, "filename": "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/CHAM_100times.data"}, {"start": 26630, "audio": 0, "end": 129478, "filename": "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/CHAM_100times.html"}, {"start": 129478, "audio": 0, "end": 371083, "filename": "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/CHAM_100times.js"}, {"start": 371083, "audio": 0, "end": 421197, "filename": "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/CHAM_100times.wasm"}, {"start": 421197, "audio": 0, "end": 430819, "filename": "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/CHAM_128x128.txt"}, {"start": 430819, "audio": 0, "end": 444041, "filename": "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/CHAM_128x256.txt"}, {"start": 444041, "audio": 0, "end": 448361, "filename": "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/CHAM_2018.c"}, {"start": 448361, "audio": 0, "end": 551205, "filename": "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/CHAM_2018.html"}, {"start": 551205, "audio": 0, "end": 658319, "filename": "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/CHAM_2018.js"}, {"start": 658319, "audio": 0, "end": 708334, "filename": "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/CHAM_2018.wasm"}, {"start": 708334, "audio": 0, "end": 716755, "filename": "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/CHAM_64x128.txt"}, {"start": 716755, "audio": 0, "end": 725043, "filename": "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/CHAM_JS.html"}, {"start": 725043, "audio": 0, "end": 725128, "filename": "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/hello.c"}, {"start": 725128, "audio": 0, "end": 827968, "filename": "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/hello.html"}, {"start": 827968, "audio": 0, "end": 931930, "filename": "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/hello.js"}, {"start": 931930, "audio": 0, "end": 977317, "filename": "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/hello.wasm"}, {"start": 977317, "audio": 0, "end": 977418, "filename": "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/ReadFile"}], "remote_package_size": 977418, "package_uuid": "01d34477-979e-4aff-aa29-703d42901c65"});
+ loadPackage({"files": [{"start": 0, "audio": 0, "end": 9622, "filename": "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/TestVectors/CHAM_128x128.txt"}, {"start": 9622, "audio": 0, "end": 22844, "filename": "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/TestVectors/CHAM_128x256.txt"}, {"start": 22844, "audio": 0, "end": 31265, "filename": "/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/TestVectors/CHAM_64x128.txt"}], "remote_package_size": 31265, "package_uuid": "c3b438b6-504a-4182-bb98-39bd90ba9a91"});
 
 })();
 
@@ -1941,7 +1942,7 @@ var ASM_CONSTS = [];
 
 STATIC_BASE = GLOBAL_BASE;
 
-STATICTOP = STATIC_BASE + 6432;
+STATICTOP = STATIC_BASE + 6464;
 /* global initializers */  __ATINIT__.push();
 
 
@@ -1950,7 +1951,7 @@ STATICTOP = STATIC_BASE + 6432;
 
 
 
-var STATIC_BUMP = 6432;
+var STATIC_BUMP = 6464;
 Module["STATIC_BASE"] = STATIC_BASE;
 Module["STATIC_BUMP"] = STATIC_BUMP;
 
