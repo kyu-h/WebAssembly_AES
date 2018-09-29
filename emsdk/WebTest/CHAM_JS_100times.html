@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>cham 64/128</title>
+    </head>
+    <body>
+        <button onclick="openTextFile()">Open</button>
+        
+        <script type="text/javascript">
+            var global = 0;
+            
+            //*****************************64 x 128**********************************//
+            function ROL_64_128(k, x){
+                return ((k << x) | (k >> 16-x)) % 0x10000;
+            }
+
+            function ROL1_64_128(k){
+                return ((k << 1) | (k >> 15)) % 0x10000;
+            }
+
+            function ROL8_64_128(k){
+                return ((k << 8) | (k >> 8)) % 0x10000;
+            }
+
+            function ROR_64_128(k, x){
+                return ((k >> x) | ((k << 16-x))) % 0x10000;
+            }
+
+            function KeyExpansion_64_128(k, rk){
+                for(var i=0; i<8; i++){
+                    rk[i] = k[i] ^ ROL_64_128(k[i], 1) ^ ROL_64_128(k[i], 8);
+                    rk[(i+8) ^ 0x0001] = k[i] ^ ROL_64_128(k[i], 1) ^ ROL_64_128(k[i], 11);
+                }
+            }
+
+            function Encryption_64_128(pt, rk, ct){
+                var tmp;
+
+                for(var i=0; i<20; i++){
+                    //pt[0]
+                    tmp = ROL_64_128(pt[1], 1) ^ rk[(4*i) % 16];
+                    ct[0] = ((pt[0] ^ (4*i)) + tmp) % 0x10000;
+                    ct[0] = ROL_64_128(ct[0], 8);
+
+
+                    //pt[1]
+                    tmp = ROL_64_128(pt[2], 8) ^ rk[(4*i+1) % 16];
+                    ct[1] = ((pt[1] ^ (4*i+1)) + tmp) % 0x10000;
+                    ct[1] = ROL_64_128(ct[1], 1);
+
+                    //pt[2]
+                    tmp = ROL_64_128(pt[3], 1) ^ rk[(4*i+2) % 16];
+                    ct[2] = ((pt[2] ^ (4*i+2)) + tmp) % 0x10000;
+                    ct[2] = ROL_64_128(ct[2], 8);
+
+                    //pt[3]
+                    tmp = ROL_64_128(ct[0], 8) ^ rk[(4*i+3) % 16];
+                    ct[3] = ((pt[3] ^ (4*i+3)) + tmp) % 0x10000;
+                    ct[3] = ROL_64_128(ct[3], 1);
+
+
+                    pt[0] = ct[0];
+                    pt[1] = ct[1];
+                    pt[2] = ct[2];
+                    pt[3] = ct[3];
+                }
+            }
+            
+            function cham64_128(){
+                var key = [0x0100, 0x0302, 0x0504, 0x0706, 0x0908, 0x0b0a, 0x0d0c, 0x0f0e];
+                var pt = [0x1100, 0x3322, 0x5544, 0x7766];
+                var pt2 = new Array(4);
+                var ct = [0x453c, 0x63bc, 0xdcfa, 0xbf4e];
+                var ct2 = new Array(4);
+                var rk = new Array(16);
+
+                KeyExpansion_64_128(key, rk);
+
+                Encryption_64_128(pt, rk, ct2);
+                
+                console.log("CHAM 64 x 128 ciphertext: " + ct2[0].toString(16) + ", " + ct2[1].toString(16) + ", " + ct2[2].toString(16) + ", " + ct2[3].toString(16));
+            }
+            
+            //*****************************128 x 128**********************************//
+            
+            function ROL_128_128(k, x){
+                return ((k << x)>>>0 | (k >>> (32-x)))>>>0 % 0x100000000;
+            }
+
+            function ROR_128_128(k, x){
+                return ((k >>> x) | (k << (32-x)))>>>0 % 0x100000000;
+            }
+
+            function KeyExpansion_128_128(k, rk){
+                for(var i=0; i<4; i++){
+                    rk[i] = k[i] ^ ROL_128_128(k[i], 1) ^ ROL_128_128(k[i], 8);
+                    rk[(i + 4) ^ 0x00000001] = k[i] ^ ROL_128_128(k[i], 1) ^ ROL_128_128(k[i], 11);
+                }
+            }
+
+            function Encryption_128_128(pt, rk, ct){
+                var tmp;
+
+                for(var i=0; i<20; i++){
+                    //pt[0]
+                    tmp = ROL_128_128(pt[1], 1) ^ rk[(4*i) % 8];
+                    ct[0] = ((pt[0] ^ (4*i)) + tmp) % 0x100000000;
+                    ct[0] = ROL_128_128(ct[0], 8);
+
+                    //pt[1]
+                    tmp = ROL_128_128(pt[2], 8) ^ rk[(4*i+1) % 8];
+                    ct[1] = ((pt[1] ^ (4*i+1)) + tmp) % 0x100000000;
+                    ct[1] = ROL_128_128(ct[1], 1);
+
+                    //pt[2]
+                    tmp = ROL_128_128(pt[3], 1) ^ rk[(4*i+2) % 8];
+                    ct[2] = ((pt[2] ^ (4*i+2)) + tmp) % 0x100000000;
+                    ct[2] = ROL_128_128(ct[2], 8);
+
+                    //pt[3]
+                    tmp = ROL_128_128(ct[0], 8) ^ rk[(4*i+3) % 8];
+                    ct[3] = ((pt[3] ^ (4*i+3)) + tmp) % 0x100000000;
+                    ct[3] = ROL_128_128(ct[3], 1);
+
+                    pt[0] = ct[0];
+                    pt[1] = ct[1];
+                    pt[2] = ct[2];
+                    pt[3] = ct[3];
+                }
+            }
+
+            function cham128_128(){
+                var key = [0x03020100, 0x07060504, 0x0b0a0908, 0x0f0e0d0c];
+                var pt = [0x33221100, 0x77665544, 0xbbaa9988, 0xffeeddcc];
+                var pt2 = new Array(4);
+                var ct = [0xc3746034, 0xb55700c5, 0x8d64ec32, 0x489332f7];
+                var ct2 = new Array(4);
+                var rk = new Array(8);
+
+                KeyExpansion_128_128(key, rk);
+
+                Encryption_128_128(pt, rk, ct2);
+                console.log("CHAM 128 x 128 ciphertext: " + ct2[0].toString(16) + ", " + ct2[1].toString(16) + ", " + ct2[2].toString(16) + ", " + ct2[3].toString(16));
+            }
+            
+            //*****************************128 x 256**********************************//
+            
+            function ROL_128_256(k, x){
+                return ((k << x)>>>0 | (k >>> (32-x)))>>>0 % 0x100000000;
+            }
+
+            function ROR_128_256(k, x){
+                return ((k >>> x) | (k << (32-x)))>>>0 % 0x100000000;
+            }
+
+            function KeyExpansion_128_256(k, rk){
+                for(var i=0; i<8; i++){
+                    rk[i] = k[i] ^ ROL_128_256(k[i], 1) ^ ROL_128_256(k[i], 8);
+                    rk[(i + 8) ^ 0x00000001] = k[i] ^ ROL_128_256(k[i], 1) ^ ROL_128_256(k[i], 11);
+                }
+            }
+
+            function Encryption_128_256(pt, rk, ct){
+                var tmp;
+
+                for(var i=0; i<24; i++){
+                    //pt[0]
+                    tmp = ROL_128_256(pt[1], 1) ^ rk[(4*i) % 16];
+                    ct[0] = ((pt[0] ^ (4*i)) + tmp) % 0x100000000;
+                    ct[0] = ROL_128_256(ct[0], 8);
+
+                    //pt[1]
+                    tmp = ROL_128_256(pt[2], 8) ^ rk[(4*i+1) % 16];
+                    ct[1] = ((pt[1] ^ (4*i+1)) + tmp) % 0x100000000;
+                    ct[1] = ROL_128_256(ct[1], 1);
+
+                    //pt[2]
+                    tmp = ROL_128_256(pt[3], 1) ^ rk[(4*i+2) % 16];
+                    ct[2] = ((pt[2] ^ (4*i+2)) + tmp) % 0x100000000;
+                    ct[2] = ROL_128_256(ct[2], 8);
+
+                    //pt[3]
+                    tmp = ROL_128_256(ct[0], 8) ^ rk[(4*i+3) % 16];
+                    ct[3] = ((pt[3] ^ (4*i+3)) + tmp) % 0x100000000;
+                    ct[3] = ROL_128_256(ct[3], 1);
+
+                    pt[0] = ct[0];
+                    pt[1] = ct[1];
+                    pt[2] = ct[2];
+                    pt[3] = ct[3];
+                }
+            }
+
+            function cham128_256(){
+                var key = [0x03020100, 0x07060504, 0x0b0a0908, 0x0f0e0d0c, 0xf3f2f1f0, 0xf7f6f5f4, 0xfbfaf9f8, 0xfffefdfc];
+                var pt = [0x33221100, 0x77665544, 0xbbaa9988, 0xffeeddcc];
+                var pt2 = new Array(4);
+                var ct = [0xa899c8a0, 0x929d55c, 0xab670d38, 0x0c4f7ac8];
+                var ct2 = new Array(4);
+                var rk = new Array(16);
+
+                KeyExpansion_128_256(key, rk);
+
+                Encryption_128_256(pt, rk, ct2);
+                console.log("CHAM 128 x 256 ciphertext: "+ ct2[0].toString(16) + ", " + ct2[1].toString(16) + ", " + ct2[2].toString(16) + ", " + ct2[3].toString(16));
+            }
+            
+            function readTextFile(file){
+                var rawFile = new XMLHttpRequest();
+                rawFile.open("GET", file, false);
+                rawFile.onreadystatechange = function (){
+                    if(rawFile.readyState === 4){
+                        if(rawFile.status === 200 || rawFile.status == 0){
+                            var allText = rawFile.responseText;
+                            console.log(allText);
+                        }
+                    }
+                }
+                rawFile.send(null);
+            }
+            
+            window.onload = function () {
+                var startTime = new Date().getTime();
+                
+                cham64_128();
+                cham128_128();
+                cham128_256();
+                
+                var endTime = new Date().getTime();
+                
+                var input_64x128 = "http://127.0.0.1:8080/TestVectors/CHAM_64x128.txt";
+                var input_128x128 = "http://127.0.0.1:8080/TestVectors/CHAM_128x128.txt";
+                var input_128x256 = "http://127.0.0.1:8080/TestVectors/CHAM_128x256.txt";
+                
+                readTextFile(input_64x128);
+                readTextFile(input_128x128);
+                readTextFile(input_128x256);
+                
+                if(global == 1){
+                    console.log("ttt");
+                }
+                
+                console.log("CHAM 3 modules encryption elapsed time = " + (endTime - startTime) / 1000 + " microseconds");
+            }
+        </script>
+    </body>
+</html>
