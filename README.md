@@ -27,3 +27,10 @@ $emrun --no_browser example.html --port 8080 //the browser will run 6931 port. 8
 
 Once the HTTP server is running, you can access http://localhost:6931/example.html this link. <br>
 If you see 'github by kyu' on console, you are success complie Web Assembly!
+<br>
+<hr>
+<h3>To read txt file on Chrome</h3>
+$npm install http-server -g <br>
+$http-server /Users/kyu/Desktop/WebAssembly/emsdk/WebTest -o <br><br>
+
+Once the HTTP server is running, you can access http://localhost:8080/example.html this link. <br>
