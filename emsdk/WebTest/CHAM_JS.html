@@ -4,8 +4,10 @@
         <title>cham 64/128</title>
     </head>
     <body>
+        <button onclick="openTextFile()">Open</button>
         
         <script type="text/javascript">
+            var global = 0;
             
             //*****************************64 x 128**********************************//
             function ROL_64_128(k, x){
@@ -203,6 +205,20 @@
                 console.log("CHAM 128 x 256 ciphertext: "+ ct2[0].toString(16) + ", " + ct2[1].toString(16) + ", " + ct2[2].toString(16) + ", " + ct2[3].toString(16));
             }
             
+            function readTextFile(file){
+                var rawFile = new XMLHttpRequest();
+                rawFile.open("GET", file, false);
+                rawFile.onreadystatechange = function (){
+                    if(rawFile.readyState === 4){
+                        if(rawFile.status === 200 || rawFile.status == 0){
+                            var allText = rawFile.responseText;
+                            console.log(allText);
+                        }
+                    }
+                }
+                rawFile.send(null);
+            }
+            
             window.onload = function () {
                 var startTime = new Date().getTime();
                 
@@ -211,6 +227,18 @@
                 cham128_256();
                 
                 var endTime = new Date().getTime();
+                
+                var input_64x128 = "http://127.0.0.1:8080/TestVectors/CHAM_64x128.txt";
+                var input_128x128 = "http://127.0.0.1:8080/TestVectors/CHAM_64x128.txt";
+                var input_128x256 = "http://127.0.0.1:8080/TestVectors/CHAM_64x128.txt";
+                
+                readTextFile(input_64x128);
+                readTextFile(input_128x128);
+                readTextFile(input_128x256);
+                
+                if(global == 1){
+                    console.log("ttt");
+                }
                 
                 console.log("CHAM 3 modules encryption elapsed time = " + (endTime - startTime) / 1000 + " microseconds");
             }
