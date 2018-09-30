@@ -33,4 +33,9 @@ If you see 'github by kyu' on console, you are success complie Web Assembly!
 $npm install http-server -g <br>
 $http-server /Users/kyu/Desktop/WebAssembly/emsdk/WebTest -o <br><br>
 
-Once the HTTP server is running, you can access http://localhost:8080/example.html this link. <br>
+Once the HTTP server is running, you can access http://localhost:8080/example.html this link.
+<hr>
+<h3> Elapsed Time Summary Using WASM, JS</h3>
+<img src="https://github.com/kyu-h/WebAssembly_CHAM/blob/master/img/%23Summary.png" width="90%"></img>
+
+
