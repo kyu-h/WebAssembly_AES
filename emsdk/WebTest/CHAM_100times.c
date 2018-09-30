@@ -211,8 +211,6 @@ int main(void) {
     }
     
     fgets(s, 80, datafile);
-
-    fclose(datafile);
     
     for(int count = 0; count < 100; count++){
         fgets(s, 80, datafile);
