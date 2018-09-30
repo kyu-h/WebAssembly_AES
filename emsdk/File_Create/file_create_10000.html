@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>tttt</title>
+        <script src="http://code.jquery.com/jquery-1.10.2.js"></script> <!-- jquery 사용하고 싶을 경우  import -->
+    </head>
+    <body>
+    </body>
+    <script>
+        window.onload = function() {
+            createFileCHAM_64x128();
+            createFileCHAM_128x128();
+            createFileCHAM_128x256();
+            
+            console.log("ttt");
+        }
+        
+        function createFileCHAM_64x128(){
+            var fileObject = new ActiveXObject("Scripting.FileSystemObject");
+            var chars = "0123456789abcdef";
+            var result = Math.floor(Math.random() * 30) + 1;
+            var string_length = result;
+            var randomstring = '';
+            var BitsradioVal = $(':radio[name="bits"]:checked').val();
+            fWrite = fileObject.CreateTextFile("C:\\Users\\kyu\\Desktop\\test\\CHAM_64x128.txt", true);
+            fWrite.write("Algo_ID = CHAM_64x128");
+            fWrite.write("\r\n");
+            
+            for(var count = 0; count < 10000; count++){
+                fWrite.write("PlainText: ");
+                for (var x=0; x<4; x++){
+                    for (var i=0; i<4; i++) {
+                        var rnum = Math.floor(Math.random() * chars.length);
+                        randomstring += chars.substring(rnum,rnum+1);
+                    }
+                    if(x == 3){
+                        fWrite.write(randomstring);
+                    }else {
+                        fWrite.write(randomstring + " ");
+                    }
+                    randomstring = "";
+                }
+                fWrite.write("\r\n");
+                fWrite.write("SecretKey: ");
+                for (var x=0; x<8; x++){
+                    for (var i=0; i<4; i++) {
+                        var rnum = Math.floor(Math.random() * chars.length);
+                        randomstring += chars.substring(rnum,rnum+1);
+                    }
+                    if(x == 7){
+                        fWrite.write(randomstring);
+                    }else {
+                        fWrite.write(randomstring + " ");
+                    }
+                    randomstring = "";
+                }
+                fWrite.write("\r\n");
+                
+                if(count == 9999)
+                    console.log(count + ": 64 is done.");
+            }
+            fWrite.close();
+        }
+        
+        function createFileCHAM_128x128(){
+            var fileObject = new ActiveXObject("Scripting.FileSystemObject");
+            var chars = "0123456789abcdef";
+            var result = Math.floor(Math.random() * 30) + 1;
+            var string_length = result;
+            var randomstring = '';
+            var BitsradioVal = $(':radio[name="bits"]:checked').val();
+            fWrite = fileObject.CreateTextFile("C:\\Users\\kyu\\Desktop\\test\\CHAM_128x128.txt", true);
+            fWrite.write("Algo_ID = CHAM_128x128");
+            fWrite.write("\r\n");
+            
+            for(var count = 0; count < 10000; count++){
+                fWrite.write("PlainText: ");
+                for (var x=0; x<4; x++){
+                    for (var i=0; i<8; i++) {
+                        var rnum = Math.floor(Math.random() * chars.length);
+                        randomstring += chars.substring(rnum,rnum+1);
+                    }
+                    if(x == 3){
+                        fWrite.write(randomstring);
+                    }else {
+                        fWrite.write(randomstring + " ");
+                    }
+                    randomstring = "";
+                }
+                fWrite.write("\r\n");
+                fWrite.write("SecretKey: ");
+                for (var x=0; x<4; x++){
+                    for (var i=0; i<8; i++) {
+                        var rnum = Math.floor(Math.random() * chars.length);
+                        randomstring += chars.substring(rnum,rnum+1);
+                    }
+                    if(x == 3){
+                        fWrite.write(randomstring);
+                    }else {
+                        fWrite.write(randomstring + " ");
+                    }
+                    randomstring = "";
+                }
+                fWrite.write("\r\n");
+                
+                if(count == 9999)
+                    console.log(count + ": 128 is done.");
+            }
+            fWrite.close();
+        }
+        
+        function createFileCHAM_128x256(){
+            var fileObject = new ActiveXObject("Scripting.FileSystemObject");
+            var chars = "0123456789abcdef";
+            var result = Math.floor(Math.random() * 30) + 1;
+            var string_length = result;
+            var randomstring = '';
+            var BitsradioVal = $(':radio[name="bits"]:checked').val();
+            fWrite = fileObject.CreateTextFile("C:\\Users\\kyu\\Desktop\\test\\CHAM_128x256.txt", true);
+            fWrite.write("Algo_ID = CHAM_128x256");
+            fWrite.write("\r\n");
+            
+            for(var count = 0; count < 10000; count++){
+                fWrite.write("PlainText: ");
+                for (var x=0; x<4; x++){
+                    for (var i=0; i<8; i++) {
+                        var rnum = Math.floor(Math.random() * chars.length);
+                        randomstring += chars.substring(rnum,rnum+1);
+                    }
+                    if(x == 3){
+                        fWrite.write(randomstring);
+                    }else {
+                        fWrite.write(randomstring + " ");
+                    }
+                    randomstring = "";
+                }
+                fWrite.write("\r\n");
+                fWrite.write("SecretKey: ");
+                for (var x=0; x<8; x++){
+                    for (var i=0; i<8; i++) {
+                        var rnum = Math.floor(Math.random() * chars.length);
+                        randomstring += chars.substring(rnum,rnum+1);
+                    }
+                    if(x == 7){
+                        fWrite.write(randomstring);
+                    }else {
+                        fWrite.write(randomstring + " ");
+                    }
+                    randomstring = "";
+                }
+                fWrite.write("\r\n");
+                
+                if(count == 9999)
+                    console.log(count + ": 256 is done.");
+            }
+            fWrite.close();
+        }
+    </script>
+</html>
