@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>tttt</title>
+        <script src="http://code.jquery.com/jquery-1.10.2.js"></script> <!-- jquery 사용하고 싶을 경우  import -->
+    </head>
+    <body>
+    </body>
+    <script>
+        window.onload = function() {
+            createFile_AES_128();
+            createFile_AES_192();
+            createFile_AES_256();
+            
+            console.log("ttt");
+        }
+        
+        function createFile_AES_128(){
+            var fileObject = new ActiveXObject("Scripting.FileSystemObject");
+            var chars = "0123456789abcdef";
+            var result = Math.floor(Math.random() * 30) + 1;
+            var string_length = result;
+            var randomstring = '';
+            var BitsradioVal = $(':radio[name="bits"]:checked').val();
+            fWrite = fileObject.CreateTextFile("C:\\Users\\kyu\\Desktop\\test\\AES_128.txt", true);
+            fWrite.write("Algo_ID = AES_128");
+            fWrite.write("\r\n");
+            
+            for(var count = 0; count < 100; count++){
+                fWrite.write("PlainText: ");
+                for (var x=0; x<16; x++){
+                    for (var i=0; i<2; i++) {
+                        var rnum = Math.floor(Math.random() * chars.length);
+                        randomstring += chars.substring(rnum,rnum+1);
+                    }
+                    if(x == 15){
+                        fWrite.write(randomstring);
+                    }else {
+                        fWrite.write(randomstring + " ");
+                    }
+                    randomstring = "";
+                }
+                fWrite.write("\r\n");
+                fWrite.write("SecretKey: ");
+                for (var x=0; x<16; x++){
+                    for (var i=0; i<2; i++) {
+                        var rnum = Math.floor(Math.random() * chars.length);
+                        randomstring += chars.substring(rnum,rnum+1);
+                    }
+                    if(x == 15){
+                        fWrite.write(randomstring);
+                    }else {
+                        fWrite.write(randomstring + " ");
+                    }
+                    randomstring = "";
+                }
+                fWrite.write("\r\n");
+            }
+            fWrite.close();
+        }
+        
+        function createFile_AES_192(){
+            var fileObject = new ActiveXObject("Scripting.FileSystemObject");
+            var chars = "0123456789abcdef";
+            var result = Math.floor(Math.random() * 30) + 1;
+            var string_length = result;
+            var randomstring = '';
+            var BitsradioVal = $(':radio[name="bits"]:checked').val();
+            fWrite = fileObject.CreateTextFile("C:\\Users\\kyu\\Desktop\\test\\AES_192.txt", true);
+            fWrite.write("Algo_ID = AES_192");
+            fWrite.write("\r\n");
+            
+            for(var count = 0; count < 100; count++){
+                fWrite.write("PlainText: ");
+                for (var x=0; x<16; x++){
+                    for (var i=0; i<2; i++) {
+                        var rnum = Math.floor(Math.random() * chars.length);
+                        randomstring += chars.substring(rnum,rnum+1);
+                    }
+                    if(x == 15){
+                        fWrite.write(randomstring);
+                    }else {
+                        fWrite.write(randomstring + " ");
+                    }
+                    randomstring = "";
+                }
+                fWrite.write("\r\n");
+                fWrite.write("SecretKey: ");
+                for (var x=0; x<24; x++){
+                    for (var i=0; i<2; i++) {
+                        var rnum = Math.floor(Math.random() * chars.length);
+                        randomstring += chars.substring(rnum,rnum+1);
+                    }
+                    if(x == 23){
+                        fWrite.write(randomstring);
+                    }else {
+                        fWrite.write(randomstring + " ");
+                    }
+                    randomstring = "";
+                }
+                fWrite.write("\r\n");
+            }
+            fWrite.close();
+        }
+        
+        function createFile_AES_256(){
+            var fileObject = new ActiveXObject("Scripting.FileSystemObject");
+            var chars = "0123456789abcdef";
+            var result = Math.floor(Math.random() * 30) + 1;
+            var string_length = result;
+            var randomstring = '';
+            var BitsradioVal = $(':radio[name="bits"]:checked').val();
+            fWrite = fileObject.CreateTextFile("C:\\Users\\kyu\\Desktop\\test\\AES_256.txt", true);
+            fWrite.write("Algo_ID = AES_256");
+            fWrite.write("\r\n");
+            
+            for(var count = 0; count < 100; count++){
+                fWrite.write("PlainText: ");
+                for (var x=0; x<16; x++){
+                    for (var i=0; i<2; i++) {
+                        var rnum = Math.floor(Math.random() * chars.length);
+                        randomstring += chars.substring(rnum,rnum+1);
+                    }
+                    if(x == 15){
+                        fWrite.write(randomstring);
+                    }else {
+                        fWrite.write(randomstring + " ");
+                    }
+                    randomstring = "";
+                }
+                fWrite.write("\r\n");
+                fWrite.write("SecretKey: ");
+                for (var x=0; x<32; x++){
+                    for (var i=0; i<2; i++) {
+                        var rnum = Math.floor(Math.random() * chars.length);
+                        randomstring += chars.substring(rnum,rnum+1);
+                    }
+                    if(x == 31){
+                        fWrite.write(randomstring);
+                    }else {
+                        fWrite.write(randomstring + " ");
+                    }
+                    randomstring = "";
+                }
+                fWrite.write("\r\n");
+            }
+            fWrite.close();
+        }
+    </script>
+</html>
