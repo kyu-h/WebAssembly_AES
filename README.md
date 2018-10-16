@@ -46,3 +46,7 @@ Just put down this command line '-s ALLOW_MEMORY_GROWTH=1' <br><br>
 $emcc -s TOTAL_MEMORY=12800KB example.c<br>
 $emcc example.c -s ALLOW_MEMORY_GROWTH=1 -o example.html --preload-file /Users/kyu/Desktop/WebAssembly_AES/emsdk/WebTest/<br>
 $emrun --no_browser example.html --port 8080 <br>
+
+<hr>
+<h3> Elapsed Time Summary Using JS and WASM at AES</h3>
+<img src="https://github.com/kyu-h/WebAssembly_AES_ECB/blob/master/img/Summary.png"></img>
