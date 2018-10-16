@@ -31,7 +31,7 @@ If you see 'github by kyu' on console, you are success complie Web Assembly!
 <hr>
 <h3>To read txt file on Chrome</h3>
 $npm install http-server -g <br>
-$http-server /Users/kyu/Desktop/WebAssembly/emsdk/WebTest -o <br><br>
+$http-server /Users/kyu/Desktop/WebAssembly_AES/emsdk/WebTest -o <br><br>
 
 Once the HTTP server is running, you can access http://localhost:8080/example.html this link.
 <hr>
