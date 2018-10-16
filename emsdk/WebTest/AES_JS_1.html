@@ -114,7 +114,6 @@
             }
             
             function AddRoundKey(round){
-                console.log("AddRoundKey");
                 var i, j;
                 for (i = 0; i<4; i++){
                     for (j = 0; j<4; j++){
@@ -129,15 +128,11 @@
             }
             
             function SubBytes(){
-                console.log("subbytes");
                 var i, j;
                 for (i = 0; i<4; i++)
                     for (j = 0; j<4; j++){
                         state[i][j] = getSBoxValue(state[i][j]);
-                        
-                        console.log(i + " " + j + " / " + state[j][i].toString(16));
                     }
-                        
             }
             
             function ShiftRows(){
@@ -162,11 +157,11 @@
                 state[3][2] = state[3][1];
                 state[3][1] = temp;
                 
-                console.log(state[1][0].toString(16) + " " + state[1][1].toString(16) + " " + state[1][2].toString(16) + " " + state[1][3].toString(16) + " " + state[2][0].toString(16) + " " + state[2][1].toString(16) + " " + state[2][2].toString(16) + " " + state[2][3].toString(16) + " " + state[3][0].toString(16) + " " + state[3][1].toString(16) + " " + state[3][2].toString(16) + " " + state[3][3].toString(16));
+                //console.log(state[0][0].toString(16) + " " +state[0][1].toString(16) + " " +state[0][2].toString(16) + " " +state[0][3].toString(16) + " " +state[1][0].toString(16) + " " + state[1][1].toString(16) + " " + state[1][2].toString(16) + " " + state[1][3].toString(16) + " " + state[2][0].toString(16) + " " + state[2][1].toString(16) + " " + state[2][2].toString(16) + " " + state[2][3].toString(16) + " " + state[3][0].toString(16) + " " + state[3][1].toString(16) + " " + state[3][2].toString(16) + " " + state[3][3].toString(16));
             }
             
+            
             function MixColumns(){
-                console.log("Mixcloumns");
                 var i;
                 var Tmp, Tm, t;
                 
@@ -174,22 +169,32 @@
                     t = state[0][i];
                     Tmp = state[0][i] ^ state[1][i] ^ state[2][i] ^ state[3][i];
                     Tm = state[0][i] ^ state[1][i]; 
-                    Tm = xtime(Tm); 
+                    Tm = ((Tm<<1) ^ (((Tm>>7) & 1) * 0x1b));
+                    if(Tm > 256)
+                        Tm = Tm - 256;
                     state[0][i] ^= Tm ^ Tmp;
-                    
+                    if(state[0][i] > 256)
+                        state[0][i] = state[0][i] - 256;
                     Tm = state[1][i] ^ state[2][i]; 
-                    Tm = xtime(Tm); 
+                    Tm = ((Tm<<1) ^ (((Tm>>7) & 1) * 0x1b));
+                    if(Tm > 256)
+                        Tm = Tm - 256;
                     state[1][i] ^= Tm ^ Tmp;
-                    
                     Tm = state[2][i] ^ state[3][i]; 
                     Tm = xtime(Tm); 
+                    if(Tm > 256)
+                        Tm = Tm - 256;
                     state[2][i] ^= Tm ^ Tmp;
-                    
+                    if(state[2][i] > 256)
+                        state[2][i] = state[2][i] - 256;
                     Tm = state[3][i] ^ t; 
-                    Tm = xtime(Tm); 
+                    Tm = xtime(Tm);
+                    if(Tm > 256)
+                        Tm = Tm - 256;
                     state[3][i] ^= Tm ^ Tmp;
+                    if(state[3][i] > 256)
+                        state[3][i] = state[3][i] - 256;
                     
-                    console.log(state[0][i].toString(16) + " " + state[1][i].toString(16) + " " + state[2][i].toString(16) + " " + state[3][i].toString(16));
                 }
             }
             
@@ -214,8 +219,6 @@
                 SubBytes();
                 ShiftRows();
                 AddRoundKey(Nr);
-                
-                console.log("ttt");
 
                 for (i = 0; i<4; i++)
                     for (j = 0; j<4; j++){
