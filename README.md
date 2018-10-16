@@ -16,6 +16,7 @@ $emcc example.c -s WASM=1 -o example.html
 $cd emsdk <br>
 $./emsdk activate --build=Release sdk-incoming-64bit binaryen-master-64bit <br>
 $source ./emsdk_env.sh --build=Release <br>
+$cd WebTest/ <br>
 $emcc example.c -s WASM=1 -o example.html <br><br>
 
   &nbsp;&nbsp;&nbsp;->If want to include some files(ex, txt or img etc.), you need to use other command line <br>
