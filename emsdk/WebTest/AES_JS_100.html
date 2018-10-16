@@ -246,7 +246,7 @@
                             for(var j=1; j<200; j+=2){
                                 var pt_split = first_split[j].split(" ");
                                 
-                                for(var i=1; i<5; i++){
+                                for(var i=1; i<17; i++){
                                     var x = pt_split[i].toString(16);
                                     var y = parseInt(x, 16);
                                     
@@ -265,15 +265,31 @@
                                     for(var i=1; i<25; i++){
                                         var x = ct_split[i].toString(16);
                                         var y = parseInt(x, 16);
-                                        key_129[i-1] = y;
+                                        key_192[i-1] = y;
                                     }
-                                }else if(count == 2){
-                                    for(var i=1; i<32; i++){
+                                }else {
+                                    for(var i=1; i<33; i++){
                                         var x = ct_split[i].toString(16);
                                         var y = parseInt(x, 16);
                                         key_256[i-1] = y;
                                     } 
                                 }
+                                
+                                for (i = 0; i<Nk * 4; i++){
+                                    if(Nr == 10)
+                                        Key[i] = key_128[i];
+                                    else if(Nr == 12)
+                                        Key[i] = key_192[i];
+                                    else
+                                        Key[i] = key_256[i];
+                                }
+
+                                for (i = 0; i<16; i++){
+                                    in_[i] = pt[i];
+                                }
+
+                                KeyExpansion();
+                                Cipher();
                             }
                         }
                     }
@@ -284,13 +300,6 @@
             window.onload = function () {
                 var i = 0;
                 var num = [128, 192, 256];
-                var AES = ["input_128", "input_192", "input_256"];
-                
-                //var key_128 = [0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6, 0xab, 0xf7, 0x15, 0x88, 0x09, 0xcf, 0x4f, 0x3c];
-                //var key_192 = [0x8e, 0x73, 0xb0, 0xf7, 0xda, 0x0e, 0x64, 0x52, 0xc8, 0x10, 0xf3, 0x2b, 0x80, 0x90, 0x79, 0xe5, 0x62, 0xf8, 0xea, 0xd2, 0x52, 0x2c, 0x6b, 0x7b];
-                //var key_256 = [0x60, 0x3d, 0xeb, 0x10, 0x15, 0xca, 0x71, 0xbe, 0x2b, 0x73, 0xae, 0xf0, 0x85, 0x7d, 0x77, 0x81, 0x1f, 0x35, 0x2c, 0x07, 0x3b, 0x61, 0x08, 0xd7, 0x2d, 0x98, 0x10, 0xa3, 0x09, 0x14, 0xdf, 0xf4];
-                
-                //var pt = [0xf6, 0x9f, 0x24, 0x45, 0xdf, 0x4f, 0x9b, 0x17, 0xad, 0x2b, 0x41, 0x7b, 0xe6, 0x6c, 0x37, 0x10];
                 
                 var startTime = new Date().getTime();
                 
@@ -298,42 +307,16 @@
                 var input_192 = "http://127.0.0.1:8080/TestVectors/AES_192.txt";
                 var input_256 = "http://127.0.0.1:8080/TestVectors/AES_256.txt";
                 
+                var AES = [input_128, input_192, input_256];
+                
                 for(var x = 0; x < 3;x++){
                     Nr = num[x];
         
-                    console.log("AES bit encryption " + num[x]);
-
                     Nk = Nr / 32;
                     Nr = Nk + 6;
                     
                     readTextFile(AES[x]);
-
-                    for (i = 0; i<Nk * 4; i++){
-                        if(Nr == 10)
-                            Key[i] = key_128[i];
-                        else if(Nr == 12)
-                            Key[i] = key_192[i];
-                        else
-                            Key[i] = key_256[i];
-                    }
-                    
-                    for (i = 0; i<16; i++){
-                        in_[i] = pt[i];
-                    }
-
-                    KeyExpansion();
-                    Cipher();
-
-                    console.log("Encryption:");
-                    
-                    console.log(out[0].toString(16) + " " + out[1].toString(16) + " " +
-                               out[2].toString(16) + " " + out[3].toString(16) + " " +
-                               out[4].toString(16) + " " + out[5].toString(16) + " " +
-                               out[6].toString(16) + " " + out[7].toString(16) + " " +
-                               out[8].toString(16) + " " + out[9].toString(16) + " " +
-                               out[10].toString(16) + " " + out[11].toString(16) + " " +
-                               out[12].toString(16) + " " + out[13].toString(16) + " " +
-                               out[14].toString(16) + " " + out[15].toString(16));
+                    console.log("AES " + num[x] + " bit 100 times encryption is done.");
                 }
                 
                 var endTime = new Date().getTime();
