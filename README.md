@@ -44,6 +44,5 @@ You need to upgrade you memory size. <br>
 Just put down this command line '-s ALLOW_MEMORY_GROWTH=1' <br><br>
 
 $emcc -s TOTAL_MEMORY=12800KB example.c<br>
-$emcc example.c -s ALLOW_MEMORY_GROWTH=1 -o example.html --preload-file /Users/kyu/Desktop/WebAssembly_AES/emsdk/WebTest/</h5>
-  &nbsp;&nbsp;&nbsp;'/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/' <br>
-
+$emcc example.c -s ALLOW_MEMORY_GROWTH=1 -o example.html --preload-file /Users/kyu/Desktop/WebAssembly_AES/emsdk/WebTest/<br>
+$emrun --no_browser example.html --port 8080 <br>
