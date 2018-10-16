@@ -36,5 +36,14 @@ $http-server /Users/kyu/Desktop/WebAssembly_AES/emsdk/WebTest -o <br><br>
 
 Once the HTTP server is running, you can access http://localhost:8080/example.html this link.
 <hr>
+<h3>When you got a memory size problem</h3>
+You probably read this command line. <br><br>
+Cannot enlarge memory arrays. Either (1) compile with  -s TOTAL_MEMORY=X  with X higher than the current value 16777216, (2) compile with  -s ALLOW_MEMORY_GROWTH=1  which allows increasing the size at runtime, or (3) if you want malloc to return NULL (0) instead of this abort, compile with  -s ABORTING_MALLOC=0 <br><br>
 
+You need to upgrade you memory size. <br> 
+Just put down this command line '-s ALLOW_MEMORY_GROWTH=1' <br><br>
+
+$emcc -s TOTAL_MEMORY=12800KB example.c<br>
+$emcc example.c -s ALLOW_MEMORY_GROWTH=1 -o example.html --preload-file /Users/kyu/Desktop/WebAssembly_AES/emsdk/WebTest/</h5>
+  &nbsp;&nbsp;&nbsp;'/Users/kyu/Desktop/WebAssembly/emsdk/WebTest/' <br>
 
